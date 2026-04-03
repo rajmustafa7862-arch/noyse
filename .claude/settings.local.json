@@ -25,7 +25,10 @@
       "Bash(node -e \"const d=require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\); const j=JSON.parse\\(d\\); console.log\\(j.bin\\);\")",
       "Bash(node -e \"const pkg=require\\('c:/Users/Gtech/noyse/node_modules/payload/package.json'\\); console.log\\(JSON.stringify\\(pkg.bin\\)\\);\")",
       "Bash(node -e \"const pkg=require\\('c:/Users/Gtech/noyse/node_modules/tsx/package.json'\\); console.log\\(pkg.version\\);\")",
-      "Bash(grep -v \"^//\")"
+      "Bash(grep -v \"^//\")",
+      "Bash(ls c:/Users/Gtech/noyse/*.html)",
+      "Bash(npm run:*)",
+      "Bash(pkill -f \"next dev\")"
     ]
   }
 }

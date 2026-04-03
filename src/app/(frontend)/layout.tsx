@@ -1,15 +1,25 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { DM_Sans, Syne } from 'next/font/google'
 import '../globals.css'
+import ClientCursor from '@/components/layout/ClientCursor'
+import ScrollReveal from '@/components/animations/ScrollReveal'
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-dm-sans',
+  weight: ['300', '400', '500', '700'],
+  style: ['normal', 'italic'],
+})
+
+const syne = Syne({
+  subsets: ['latin'],
+  variable: '--font-syne',
+  weight: ['600', '700', '800'],
 })
 
 export const metadata: Metadata = {
   title: 'NOYSE — News Without Clutter',
-  description: 'Modern, human-curated news platform',
+  description: 'AI-powered news intelligence. Signal over noise, always.',
 }
 
 export default function FrontendLayout({
@@ -18,8 +28,10 @@ export default function FrontendLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full`}>
-      <body className="min-h-full flex flex-col bg-[#000000] text-white antialiased">
+    <html lang="en" data-theme="dark" className={`${dmSans.variable} ${syne.variable}`}>
+      <body>
+        <ClientCursor />
+        <ScrollReveal />
         {children}
       </body>
     </html>
