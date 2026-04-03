@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm show:*)",
+      "Bash(npm install:*)",
+      "Bash(mkdir -p c:/Users/Gtech/noyse/src/collections)",
+      "Bash(mkdir -p c:/Users/Gtech/noyse/src/app/\\\\\\(payload\\\\\\)/admin/\\\\[\\\\[...segments\\\\]\\\\])",
+      "Bash(mkdir -p c:/Users/Gtech/noyse/src/app/\\\\\\(payload\\\\\\)/api/\\\\[...slug\\\\])",
+      "Bash(npx tsc:*)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('exports',{}\\), indent=2\\)\\)\")",
+      "Bash(python3 -c \" import json with open\\('c:/Users/Gtech/noyse/node_modules/@payloadcms/next/package.json'\\) as f: d = json.load\\(f\\) exports = d.get\\('exports', {}\\) for k, v in exports.items\\(\\): print\\(k, '->', json.dumps\\(v\\)[:100]\\) \")",
+      "Bash(node -e \"const pkg = require\\('c:/Users/Gtech/noyse/node_modules/@payloadcms/next/package.json'\\); const exp = pkg.exports; Object.keys\\(exp\\).slice\\(0,20\\).forEach\\(k => { const v = exp[k]; const types = typeof v === 'object' ? \\(v.types || v.import?.types || ''\\) : ''; console.log\\(k, '->', types\\); }\\);\")",
+      "Bash(xargs grep:*)",
+      "Bash(xargs head:*)",
+      "Bash(node -e \"const pkg = require\\('c:/Users/Gtech/noyse/node_modules/@payloadcms/next/package.json'\\); console.log\\(JSON.stringify\\(pkg.exports['./withPayload'], null, 2\\)\\);\")",
+      "Bash(ls c:/Users/Gtech/noyse/.env*)",
+      "Bash(timeout 30 npm run dev)",
+      "Bash(node -e \"const pkg = require\\('c:/Users/Gtech/noyse/node_modules/@payloadcms/next/package.json'\\); const exp = pkg.exports; const cssKey = Object.keys\\(exp\\).find\\(k => k.includes\\('css'\\)\\); console.log\\(cssKey, '->', JSON.stringify\\(exp[cssKey]\\)\\);\")",
+      "Bash(node -e \"const pkg = require\\('c:/Users/Gtech/noyse/node_modules/@payloadcms/next/package.json'\\); const exp = pkg.exports['./layouts']; console.log\\(JSON.stringify\\(exp, null, 2\\)\\);\")",
+      "Bash(python3 -c \" with open\\('c:/Users/Gtech/noyse/node_modules/@payloadcms/next/dist/layouts/Root/index.js.map'\\) as f: content = f.read\\(\\) import json d = json.loads\\(content\\) src = d.get\\('sourcesContent', ['']\\)[0] for line in src.split\\('\\\\n'\\): if 'css' in line.lower\\(\\) or 'scss' in line.lower\\(\\) or 'import' in line.lower\\(\\): print\\(repr\\(line\\)\\) \")",
+      "Bash(python3)",
+      "Bash(node -e ':*)",
+      "Bash(npx payload:*)",
+      "Bash(node -e \"const pkg = require\\('c:/Users/Gtech/noyse/node_modules/@payloadcms/richtext-lexical/package.json'\\); const rsc = pkg.exports['./rsc']; console.log\\(JSON.stringify\\(rsc, null, 2\\)\\);\")",
+      "Bash(node -e \"const d=require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\); const j=JSON.parse\\(d\\); console.log\\(j.bin\\);\")",
+      "Bash(node -e \"const pkg=require\\('c:/Users/Gtech/noyse/node_modules/payload/package.json'\\); console.log\\(JSON.stringify\\(pkg.bin\\)\\);\")",
+      "Bash(node -e \"const pkg=require\\('c:/Users/Gtech/noyse/node_modules/tsx/package.json'\\); console.log\\(pkg.version\\);\")",
+      "Bash(grep -v \"^//\")"
+    ]
+  }
+}
