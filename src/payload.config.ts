@@ -1,11 +1,13 @@
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { cloudinaryStorage } from 'payload-storage-cloudinary'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
 import { Posts } from './collections/Posts'
 import { Categories } from './collections/Categories'
+import { Media } from './collections/Media'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,6 +25,7 @@ export default buildConfig({
   collections: [
     Posts,
     Categories,
+    Media,
     // Built-in Users collection for admin auth
     {
       slug: 'users',
@@ -37,6 +40,24 @@ export default buildConfig({
         },
       ],
     },
+  ],
+
+  // ── Plugins ───────────────────────────────────────────────────
+  plugins: [
+    cloudinaryStorage({
+      cloudConfig: {
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key:    process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+      },
+      collections: {
+        media: {
+          folder: 'noyse-media',
+          resourceType: 'auto',
+          deleteFromCloudinary: true,
+        },
+      },
+    }),
   ],
 
   // ── Default rich text editor ──────────────────────────────────
