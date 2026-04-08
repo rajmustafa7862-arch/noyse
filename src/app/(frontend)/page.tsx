@@ -1,4 +1,12 @@
+import type { Metadata } from 'next'
 import PageLoader from '@/components/home/PageLoader'
+
+export const metadata: Metadata = {
+  title: { absolute: 'NOYSE — News Without Clutter' },
+  description:
+    'Human-curated news platform delivering only the stories that matter. No clickbait, no noise.',
+  alternates: { canonical: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000' },
+}
 import Navbar from '@/components/layout/Navbar'
 import HeroSection from '@/components/home/HeroSection'
 import TickerBar from '@/components/home/TickerBar'

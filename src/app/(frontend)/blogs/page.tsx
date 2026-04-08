@@ -7,8 +7,9 @@ import TickerBar from '@/components/home/TickerBar'
 import BlogsClient from './BlogsClient'
 
 export const metadata: Metadata = {
-  title: 'Blogs — NOYSE',
-  description: 'Browse all published articles and news from NOYSE. Curated human journalism, signal over noise.',
+  title: 'Latest News',
+  description:
+    'Browse all published articles on NOYSE. Human-curated journalism without the noise.',
 }
 
 interface Post {

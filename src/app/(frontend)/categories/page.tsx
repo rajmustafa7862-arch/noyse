@@ -7,8 +7,9 @@ import Footer from '@/components/layout/Footer'
 import TickerBar from '@/components/home/TickerBar'
 
 export const metadata: Metadata = {
-  title: 'Categories — NOYSE',
-  description: 'Browse news by category. Politics, Tech, Sports, Entertainment, World, Business, and Lifestyle — all curated by NOYSE.',
+  title: 'Browse Categories',
+  description:
+    'Explore news by category on NOYSE — Politics, Tech, Sports, Entertainment, World, Business and Lifestyle.',
 }
 
 const CATEGORY_META: Record<string, { icon: string; desc: string; color: string }> = {

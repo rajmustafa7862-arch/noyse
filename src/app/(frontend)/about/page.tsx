@@ -5,8 +5,9 @@ import TickerBar from '@/components/home/TickerBar'
 import CTASection from '@/components/home/CTASection'
 
 export const metadata: Metadata = {
-  title: 'About — NOYSE',
-  description: 'NOYSE is a human-curated news platform built to deliver signal over noise. Discover our mission, values, and team.',
+  title: 'About Us',
+  description:
+    'NOYSE is a human-curated news platform built for people who want signal, not noise.',
 }
 
 const VALUES = [

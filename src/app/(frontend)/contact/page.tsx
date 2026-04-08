@@ -5,8 +5,9 @@ import TickerBar from '@/components/home/TickerBar'
 import ContactForm from './ContactForm'
 
 export const metadata: Metadata = {
-  title: 'Contact — NOYSE',
-  description: 'Get in touch with the NOYSE team. Questions, tips, corrections, or partnerships — we\'d love to hear from you.',
+  title: 'Contact Us',
+  description:
+    'Get in touch with the NOYSE team. Send tips, partnership inquiries, or just say hello.',
 }
 
 const SOCIAL_LINKS = [

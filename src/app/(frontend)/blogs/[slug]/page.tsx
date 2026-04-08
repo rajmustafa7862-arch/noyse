@@ -168,19 +168,35 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const post = await getPost(slug)
-  if (!post) return { title: 'Not Found — NOYSE' }
+  if (!post) return { title: 'Not Found' }
 
-  const title = post.seo?.seoTitle ?? `${post.title} — NOYSE`
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+  const title       = post.seo?.seoTitle       ?? post.title
   const description = post.seo?.seoDescription ?? post.excerpt ?? 'Read this article on NOYSE.'
+  const ogImages    = post.featuredImage?.url
+    ? [{ url: post.featuredImage.url, width: 1200, height: 630, alt: post.title }]
+    : [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'NOYSE' }]
 
   return {
     title,
     description,
+    alternates: { canonical: `${siteUrl}/blogs/${slug}` },
     openGraph: {
       title,
       description,
       type: 'article',
-      images: post.featuredImage?.url ? [{ url: post.featuredImage.url }] : [],
+      url: `${siteUrl}/blogs/${slug}`,
+      siteName: 'NOYSE',
+      publishedTime: post.publishedDate,
+      authors: ['NOYSE'],
+      images: ogImages,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@noysenews',
+      title,
+      description,
+      images: ogImages.map(i => i.url),
     },
   }
 }
@@ -274,17 +290,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const hasAffiliate = !!(post.affiliateProduct?.productName && post.affiliateProduct?.affiliateLink)
 
   // JSON-LD structured data
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://noyse.com'
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
     headline: post.title,
     description: post.excerpt,
-    image: post.featuredImage?.url,
+    image: post.featuredImage?.url ?? `${siteUrl}/og-image.jpg`,
     datePublished: post.publishedDate,
+    author: {
+      '@type': 'Organization',
+      name: 'NOYSE',
+    },
     publisher: {
       '@type': 'Organization',
       name: 'NOYSE',
-      url: process.env.NEXT_PUBLIC_SERVER_URL ?? 'https://noyse.com',
+      url: siteUrl,
     },
   }
 
