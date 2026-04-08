@@ -65,39 +65,12 @@ export const Posts: CollectionConfig = {
       },
     },
 
-    // ── Featured Image (Cloudinary URL) ──────────────────────────
+    // ── Featured Image (Media upload → Cloudinary) ───────────────
     {
       name: 'featuredImage',
-      type: 'group',
+      type: 'upload',
+      relationTo: 'media',
       label: 'Featured Image',
-      fields: [
-        {
-          name: 'url',
-          type: 'text',
-          label: 'Cloudinary Image URL',
-          admin: {
-            description: 'Paste the Cloudinary URL for the featured image',
-          },
-        },
-        {
-          name: 'alt',
-          type: 'text',
-          label: 'Alt Text',
-          admin: {
-            description: 'Describe the image for accessibility and SEO',
-          },
-        },
-        {
-          name: 'width',
-          type: 'number',
-          label: 'Width (px)',
-        },
-        {
-          name: 'height',
-          type: 'number',
-          label: 'Height (px)',
-        },
-      ],
     },
 
     // ── Category ─────────────────────────────────────────────────
