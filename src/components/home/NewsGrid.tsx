@@ -147,7 +147,7 @@ export default function NewsGrid({ initialPosts = [] }: NewsGridProps) {
                 <div className="news-body">
                   <div className="news-meta">
                     <span className={`news-cat ${colorClass}`}>{post.category || 'Tech'}</span>
-                    <span className="news-time">{timeAgo(post.publishedDate)}</span>
+                    <span className="news-time" suppressHydrationWarning>{timeAgo(post.publishedDate)}</span>
                   </div>
                   <h3 className="news-headline">{post.title}</h3>
                   {post.excerpt && <p className="news-excerpt">{post.excerpt}</p>}

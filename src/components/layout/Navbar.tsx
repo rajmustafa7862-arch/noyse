@@ -2,13 +2,23 @@
 
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { animate } from 'animejs'
+
+const NAV_LINKS = [
+  { href: '/', label: 'Home' },
+  { href: '/blogs', label: 'Blogs' },
+  { href: '/categories', label: 'Categories' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+]
 
 export default function Navbar() {
   const navRef = useRef<HTMLElement>(null)
   const mobileNavRef = useRef<HTMLDivElement>(null)
   const hamburgerRef = useRef<HTMLButtonElement>(null)
   const isOpen = useRef(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,20 +69,26 @@ export default function Navbar() {
   return (
     <>
       <nav id="nav" ref={navRef}>
-        <div className="nav-brand">
+        <Link href="/" className="nav-brand">
           <span className="brand-dot"></span>
           NOYSE
-        </div>
+        </Link>
         <ul className="nav-links">
-          <li><a href="#why">Why NOYSE</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#news">News</a></li>
-          <li><a href="#drops">Drops</a></li>
+          {NAV_LINKS.map(({ href, label }) => (
+            <li key={href}>
+              <Link
+                href={href}
+                className={pathname === href ? 'nav-link-active' : ''}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
         </ul>
         <div className="nav-actions">
           <button id="theme-toggle" title="Toggle theme" onClick={handleThemeToggle}>☀</button>
-          <button className="btn-ghost">Sign In</button>
-          <button className="btn-primary">Get Access</button>
+          <Link href="/contact" className="btn-ghost">Contact</Link>
+          <Link href="/blogs" className="btn-primary">Read Now</Link>
           <button
             className="hamburger"
             id="hamburger"
@@ -86,11 +102,11 @@ export default function Navbar() {
       </nav>
 
       <div id="mobile-nav" ref={mobileNavRef}>
-        <a href="#why" onClick={closeMobileNav}>Why NOYSE</a>
-        <a href="#features" onClick={closeMobileNav}>Features</a>
-        <a href="#news" onClick={closeMobileNav}>News</a>
-        <a href="#drops" onClick={closeMobileNav}>Drops</a>
-        <a href="#cta" onClick={closeMobileNav}>Get Access</a>
+        {NAV_LINKS.map(({ href, label }) => (
+          <Link key={href} href={href} onClick={closeMobileNav}>
+            {label}
+          </Link>
+        ))}
       </div>
     </>
   )
