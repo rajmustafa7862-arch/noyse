@@ -8,6 +8,8 @@ import { fileURLToPath } from 'url'
 import { Posts } from './collections/Posts'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
+import { Subscribers } from './collections/Subscribers'
+import { Newsletters } from './collections/Newsletters'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,6 +28,8 @@ export default buildConfig({
     Posts,
     Categories,
     Media,
+    Subscribers,
+    Newsletters,
     // Built-in Users collection for admin auth
     {
       slug: 'users',
