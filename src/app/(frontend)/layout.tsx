@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { DM_Sans, Syne } from 'next/font/google'
+import Script from 'next/script'
 import '../globals.css'
 import ClientCursor from '@/components/layout/ClientCursor'
 import ScrollReveal from '@/components/animations/ScrollReveal'
@@ -66,6 +67,11 @@ export default function FrontendLayout({
         <ClientCursor />
         <ScrollReveal />
         {children}
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id="d9a4f22b-4561-4c66-abb3-399b8664c2f6"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   )
