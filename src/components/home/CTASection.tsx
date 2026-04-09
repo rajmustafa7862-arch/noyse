@@ -1,29 +1,52 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { animate } from 'animejs'
 
 export default function CTASection() {
   const inputRef = useRef<HTMLInputElement>(null)
-  const btnRef = useRef<HTMLButtonElement>(null)
+  const btnRef   = useRef<HTMLButtonElement>(null)
+  const [loading, setLoading] = useState(false)
 
-  const handleJoin = () => {
+  const handleJoin = async () => {
     const input = inputRef.current
-    const btn = btnRef.current
+    const btn   = btnRef.current
     if (!input || !btn) return
 
+    // Client-side format check
     if (!input.value.includes('@')) {
       animate(input, {
         translateX: [0, -8, 8, -6, 6, 0],
         borderColor: ['rgba(239,68,68,0.8)', 'var(--border2)'],
-        duration: 500, ease: 'outQuad'
+        duration: 500, ease: 'outQuad',
       })
       return
     }
 
-    btn.textContent = '✓ You\'re in!'
-    btn.style.background = '#10b981'
-    animate(btn, { scale: [1, 1.06, 1], duration: 400, ease: 'outElastic(1, .5)' })
+    setLoading(true)
+    btn.textContent = 'Sending…'
+
+    try {
+      const res  = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: input.value.trim() }),
+      })
+      const data = await res.json()
+
+      if (!res.ok) throw new Error(data.error ?? 'Unknown error')
+
+      btn.textContent   = '✓ You\'re in!'
+      btn.style.background = '#10b981'
+      animate(btn, { scale: [1, 1.06, 1], duration: 400, ease: 'outElastic(1, .5)' })
+      input.value = ''
+    } catch {
+      btn.textContent      = 'Try again'
+      btn.style.background = 'rgba(239,68,68,0.8)'
+      animate(btn, { scale: [1, 1.04, 1], duration: 300, ease: 'outQuad' })
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -39,8 +62,14 @@ export default function CTASection() {
             type="email"
             className="email-input"
             placeholder="your@email.com"
+            disabled={loading}
           />
-          <button ref={btnRef} className="btn-join" onClick={handleJoin}>
+          <button
+            ref={btnRef}
+            className="btn-join"
+            onClick={handleJoin}
+            disabled={loading}
+          >
             Join Waitlist
           </button>
         </div>
