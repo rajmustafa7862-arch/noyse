@@ -26,6 +26,7 @@ import { ParagraphFeatureClient as t } from '@payloadcms/richtext-lexical/client
 import { RelationshipFeatureClient as u } from '@payloadcms/richtext-lexical/client'
 import { InlineToolbarFeatureClient as v } from '@payloadcms/richtext-lexical/client'
 import { UploadFeatureClient as w } from '@payloadcms/richtext-lexical/client'
+import { SendNewsletterButton as x } from '@/components/admin/SendNewsletterButton'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": a,
@@ -51,4 +52,5 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#RelationshipFeatureClient": u,
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": v,
   "@payloadcms/richtext-lexical/client#UploadFeatureClient": w,
+  "src/components/admin/SendNewsletterButton#SendNewsletterButton": x,
 }
