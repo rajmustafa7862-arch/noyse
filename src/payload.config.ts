@@ -76,12 +76,13 @@ export default buildConfig({
   },
 
   // ── Database — Supabase PostgreSQL ────────────────────────────
-  // Pool is capped at 3 to stay within Supabase free-tier connection limits.
+  // max:10 is safe — Supabase free tier allows up to 15 direct connections
+  // via the Transaction pooler. min:0 releases idle connections immediately.
   db: postgresAdapter({
     pool: {
-      connectionString:    process.env.DATABASE_URI || '',
+      connectionString:  process.env.DATABASE_URI || '',
       min:               0,
-      max:               3,
+      max:               10,
       idleTimeoutMillis: 30000,
     },
   }),
