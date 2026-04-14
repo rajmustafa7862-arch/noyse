@@ -21,6 +21,11 @@ export default buildConfig({
     meta: {
       titleSuffix: '— NOYSE Admin',
     },
+    importMap: {
+      // Disable auto-generation — we manage importMap.js manually.
+      // Auto-generation fails in TypeScript projects and can corrupt the map.
+      autoGenerate: false,
+    },
   },
 
   // ── Collections ──────────────────────────────────────────────
