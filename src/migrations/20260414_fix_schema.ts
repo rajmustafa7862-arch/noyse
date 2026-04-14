@@ -10,21 +10,31 @@ import { sql } from '@payloadcms/db-postgres'
  */
 export async function up({ db }: MigrateUpArgs): Promise<void> {
   // ── media table ────────────────────────────────────────────────
+  // Includes base Payload upload columns + cloudinary-plugin-specific columns
   await db.execute(sql`
     CREATE TABLE IF NOT EXISTS media (
-      id              SERIAL PRIMARY KEY,
-      alt             VARCHAR,
-      updated_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
-      created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
-      url             VARCHAR,
-      thumbnail_u_r_l VARCHAR,
-      filename        VARCHAR UNIQUE,
-      mime_type       VARCHAR,
-      filesize        NUMERIC,
-      width           NUMERIC,
-      height          NUMERIC,
-      focal_x         NUMERIC,
-      focal_y         NUMERIC
+      id                        SERIAL PRIMARY KEY,
+      alt                       VARCHAR,
+      updated_at                TIMESTAMPTZ NOT NULL DEFAULT now(),
+      created_at                TIMESTAMPTZ NOT NULL DEFAULT now(),
+      url                       VARCHAR,
+      thumbnail_u_r_l           VARCHAR,
+      filename                  VARCHAR UNIQUE,
+      mime_type                 VARCHAR,
+      filesize                  NUMERIC,
+      width                     NUMERIC,
+      height                    NUMERIC,
+      focal_x                   NUMERIC,
+      focal_y                   NUMERIC,
+      -- cloudinary-specific columns added by payload-storage-cloudinary
+      cloudinary_public_id      VARCHAR,
+      cloudinary_url            VARCHAR,
+      cloudinary_resource_type  VARCHAR,
+      cloudinary_format         VARCHAR,
+      cloudinary_version        NUMERIC,
+      original_url              VARCHAR,
+      transformed_url           VARCHAR,
+      prefix                    VARCHAR
     )
   `)
 
