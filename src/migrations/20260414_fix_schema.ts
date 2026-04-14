@@ -94,9 +94,36 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
       created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
     )
   `)
+  // ── payload_locked_documents_rels: add FK columns for new collections ──
+  // Every collection slug needs a {slug}_id column + index so Payload's ORM
+  // can build locked-document queries (used on account/edit pages).
+  await db.execute(sql`
+    ALTER TABLE payload_locked_documents_rels
+      ADD COLUMN IF NOT EXISTS media_id        INTEGER REFERENCES media(id)        ON DELETE CASCADE,
+      ADD COLUMN IF NOT EXISTS subscribers_id  INTEGER REFERENCES subscribers(id)  ON DELETE CASCADE,
+      ADD COLUMN IF NOT EXISTS newsletters_id  INTEGER REFERENCES newsletters(id)  ON DELETE CASCADE
+  `)
+  await db.execute(sql`
+    CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_media_id_idx
+      ON payload_locked_documents_rels USING btree (media_id)
+  `)
+  await db.execute(sql`
+    CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_subscribers_id_idx
+      ON payload_locked_documents_rels USING btree (subscribers_id)
+  `)
+  await db.execute(sql`
+    CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_newsletters_id_idx
+      ON payload_locked_documents_rels USING btree (newsletters_id)
+  `)
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {
+  await db.execute(sql`
+    ALTER TABLE payload_locked_documents_rels
+      DROP COLUMN IF EXISTS newsletters_id,
+      DROP COLUMN IF EXISTS subscribers_id,
+      DROP COLUMN IF EXISTS media_id
+  `)
   await db.execute(sql`DROP TABLE IF EXISTS newsletters`)
   await db.execute(sql`DROP TABLE IF EXISTS subscribers`)
   await db.execute(sql`DROP TYPE IF EXISTS enum_newsletters_status`)
